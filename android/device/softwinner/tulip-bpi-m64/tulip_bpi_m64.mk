@@ -14,6 +14,14 @@ PRODUCT_PACKAGES += \
     Bluetooth
 #   PartnerChromeCustomizationsProvider
 
+#------------------ BPI-M64 3rd-party apk --------------------------
+PRODUCT_PACKAGES += \
+	Camerafi    \
+	Kodi        \
+        Pinyin      \
+        Zhuyin        
+
+
 PRODUCT_COPY_FILES += \
     device/softwinner/tulip-bpi-m64/kernel:kernel \
     device/softwinner/tulip-bpi-m64/fstab.sun50iw1p1:root/fstab.sun50iw1p1 \
