@@ -28,10 +28,16 @@ static u32 sunxi_key_mapping(u32 code)
 	temp = (code >> 8)&0xffff;
 	for(i = 0; i < match_num; i++){
 		if(match_addr[i] == temp)
+                {      
 			return code;
+                }
 	}
 
-	return KEY_RESERVED;
+        //Justin 20160813 porting Start
+        printk("Justin _2_modify= %d",code);
+	    return code;
+        //return KEY_RESERVED;
+        //Justin 20160813 porting End
 }
 
 static struct rc_map_list sunxi_map = {

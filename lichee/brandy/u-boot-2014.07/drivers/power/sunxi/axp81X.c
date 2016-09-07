@@ -49,8 +49,27 @@ extern int axp81_probe_supply_status_byname(char *vol_name);
 int axp81_probe(void)
 {
 	u8    pmu_type;
+     //Justin 20160816 Poting for ACIN_Power Start
+        u8    temp_value;
+     //Justin 20160816 Poting for ACIN_Power End
 
     axp_i2c_config(SUNXI_AXP_81X, AXP81X_ADDR);
+
+    //Justin 20160816 Poting for ACIN_Power Start
+   if(axp_i2c_read(AXP81X_ADDR, 0x3A, &temp_value))
+    {
+        return -1;
+    }
+    temp_value &= 0xf8;
+    temp_value |= 0x04;
+    if(axp_i2c_write(AXP81X_ADDR, 0x3A, temp_value))
+    {
+        printf("axp write error\n");
+        return -1;
+    }
+    //Justin 20160816 Poting for ACIN_Power End
+
+
 	if(axp_i2c_read(AXP81X_ADDR, BOOT_POWER81X_VERSION, &pmu_type))
 	{
 		printf("axp read error\n");

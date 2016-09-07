@@ -480,7 +480,7 @@ static s32 disp_hdmi_get_input_csc(struct disp_device* hdmi)
 
 	if ((NULL == hdmi) || (NULL == hdmip)) {
 		DE_WRN("hdmi set func null  hdl!\n");
-		return DIS_FAIL;
+		return  0;
 	}
 
 	if (hdmip->hdmi_func.get_input_csc == NULL)
@@ -497,7 +497,10 @@ static s32 disp_hdmi_get_input_color_range(struct disp_device* hdmi)
 		return DIS_FAIL;
 	}
 
-	return DISP_COLOR_RANGE_0_255;
+	if (1 == disp_hdmi_get_input_csc(hdmi))
+		return DISP_COLOR_RANGE_16_235;
+	else
+		return DISP_COLOR_RANGE_0_255;
 }
 
 static s32 disp_hdmi_suspend(struct disp_device* hdmi)
