@@ -1151,7 +1151,7 @@ sndcodec_used = 0x1
 aif2fmt = 0x3
 aif3fmt = 0x3
 aif2master = 0x1
-hp_detect_case = 0x0
+hp_detect_case = 0x1
 ;------------------------------------------------------------------------------
 [i2s]
 i2s_used = 0x1
