@@ -1,4 +1,4 @@
-# BPI-A64-Android
+# BPI-M64 Android 6.1 Source code
 ---------
 ###1 Build Android BSP
  $cd lichee
