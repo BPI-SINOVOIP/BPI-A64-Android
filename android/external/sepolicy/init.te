@@ -266,6 +266,8 @@ allow init init:key { write search setattr };
 # Allow init to create /data/unencrypted
 allow init unencrypted_data_file:dir create_dir_perms;
 
+allow init kernel:security setenforce;
+
 unix_socket_connect(init, vold, vold)
 
 ###
