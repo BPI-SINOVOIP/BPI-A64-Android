@@ -48,7 +48,6 @@ All available boards:
 Choice:2
 
 
-1,2
    $ ./build.sh 
 
 ***********
