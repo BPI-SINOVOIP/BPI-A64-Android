@@ -58,6 +58,27 @@ public class EthernetManager {
                 }
             };
 
+    public static final int ETH_STATE_UNKNOWN = 0;
+    public static final int ETH_STATE_DISABLED = 1;
+    public static final int ETH_STATE_ENABLED = 2;
+
+    public void start() {
+        try {
+            mService.Trackstart();
+        } catch (NullPointerException | RemoteException e) {
+        }
+    }
+
+    public void stop() {
+        try {
+            mService.Trackstop();
+        } catch (NullPointerException | RemoteException e) {
+        }
+    }
+
+
+
+
     /**
      * A listener interface to receive notification on changes in Ethernet.
      */

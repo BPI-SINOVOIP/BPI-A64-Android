@@ -124,6 +124,7 @@ import com.android.settings.wifi.AdvancedWifiSettings;
 import com.android.settings.wifi.SavedAccessPointsWifiSettings;
 import com.android.settings.wifi.WifiSettings;
 import com.android.settings.wifi.p2p.WifiP2pSettings;
+import com.android.settings.ethernet.EthernetSettings;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -256,6 +257,7 @@ public class SettingsActivity extends Activity
             R.id.wireless_section,
             R.id.wifi_settings,
             R.id.bluetooth_settings,
+	    R.id.ethernet_settings,
             R.id.data_usage_settings,
             R.id.sim_settings,
             R.id.wireless_settings,
@@ -286,6 +288,7 @@ public class SettingsActivity extends Activity
             WifiSettings.class.getName(),
             AdvancedWifiSettings.class.getName(),
             SavedAccessPointsWifiSettings.class.getName(),
+	    EthernetSettings.class.getName(),
             BluetoothSettings.class.getName(),
             SimSettings.class.getName(),
             TetherSettings.class.getName(),
@@ -1250,6 +1253,11 @@ public class SettingsActivity extends Activity
                 } else if (id == R.id.bluetooth_settings) {
                     // Remove Bluetooth Settings if Bluetooth service is not available.
                     if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH)) {
+                        removeTile = true;
+                    }
+                } else if (id == R.id.ethernet_settings) {
+                    // Remove Ethernet Settings if Ethernet service is not available.
+                    if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_ETHERNET)) {
                         removeTile = true;
                     }
                 } else if (id == R.id.data_usage_settings) {

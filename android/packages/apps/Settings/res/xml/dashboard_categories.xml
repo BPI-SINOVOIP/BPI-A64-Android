@@ -39,6 +39,14 @@
                 android:icon="@drawable/ic_settings_bluetooth"
                 />
 
+        <!-- Ethernet -->
+        <dashboard-tile
+                android:id="@+id/ethernet_settings"
+                android:title="@string/ethernet_settings"
+                android:fragment="com.android.settings.ethernet.EthernetSettings"
+                android:icon="@drawable/ic_settings_dock"
+                />
+
         <!-- SIM Cards -->
         <dashboard-tile
                 android:id="@+id/sim_settings"
