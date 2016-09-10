@@ -48,6 +48,7 @@ on fs
     #init_dev_detect
 
     insmod /system/vendor/modules/gpio-sunxi.ko
+    insmod /system/vendor/modules/ft5x_ts.ko  
     
      # BPI-M664-GPIO 
         chmod 777 /sys/class/gpio_sw/PH3/data

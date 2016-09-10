@@ -97,6 +97,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.zygote.disable_gl_preload=false
 
 #Justin  Porting Start
+#BPI_M64 Set Density
+# HDMI Display = ro.sf.lcd_density=160
+# LCD  Display = ro.sf.lcd_density=120
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sf.lcd_density=160 \
 #Justin  Porting End
