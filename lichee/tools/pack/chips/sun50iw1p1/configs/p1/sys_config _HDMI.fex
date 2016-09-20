@@ -1248,8 +1248,8 @@ gpio_pin_25	=  port:PB7<1><default><default><0>
 gpio_pin_26	=  port:PL9<1><default><default><0>
 gpio_pin_27	=  port:PL7<1><default><default><0>
 gpio_pin_28	=  port:PL8<1><default><default><0>
-gpio_pin_29	=  port:PE14<1><default><default><0>
-gpio_pin_30	=  port:PE15<1><default><default><0>
+gpio_pin_29	=  port:PE14<1><default><default><1>
+gpio_pin_30	=  port:PE15<1><default><default><1>
 
 
 
