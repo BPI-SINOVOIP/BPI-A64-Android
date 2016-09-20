@@ -1,4 +1,13 @@
 # BPI-M64 Android 6.1 Source code
+-------
+Notice: Please download this file to the correct path
+
+1.  gcc-linaro-aarch64.tar.xz   ==> /lichee/buildroot/dl
+
+2.  gcc-linaro-aarch64.tar.xz   ==> /lichee/brandy/toolchain
+
+3.  gcc-linaro-arm.tar.xz       ==> /lichee/brandy/toolchain
+
 ---------
 ###1 Build Android BSP
  $ cd lichee
