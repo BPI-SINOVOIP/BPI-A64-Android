@@ -2,7 +2,7 @@
 PRODUCT_PACKAGES += \
 	chat \
 	pppd \
-    rild
+	rild
 
 # 3G Data Card Configuration Flie
 PRODUCT_COPY_FILES += \
@@ -22,6 +22,7 @@ PRODUCT_COPY_FILES += \
 
 # Radio parameter
 PRODUCT_PROPERTY_OVERRIDES += \
-	rild.libargs=-d/dev/ttyUSB2 \
+	rild.libargs=-d/dev/ttyUSB3 \
 	rild.libpath=libsoftwinner-ril-6.0.so \
-	ro.sw.embeded.telephony=false
+	ro.sw.embeded.telephony=false \
+	audio.without.earpiece=true
