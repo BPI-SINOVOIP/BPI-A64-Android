@@ -486,7 +486,7 @@ lcd_bl_0_percent    = 0
 lcd_bl_40_percent   = 23
 lcd_bl_100_percent  = 100
 
-lcd_backlight       = 50
+lcd_backlight       = 180
 lcd_if              = 4
 lcd_x               = 800
 lcd_y               = 480
@@ -494,7 +494,7 @@ lcd_width           = 86
 lcd_height          = 154
 lcd_dclk_freq       = 30
 lcd_pwm_used        = 1
-lcd_pwm_ch          = 0
+lcd_pwm_ch          = 16
 lcd_pwm_freq        = 50000
 lcd_pwm_pol         = 1
 lcd_pwm_max_limit   = 255
@@ -539,17 +539,17 @@ hdmi_cts_compatibility = 0
 ;pwm config
 ;----------------------------------------------------------------------------------
 [pwm0]
-pwm_used            = 1
+pwm_used            = 0
 pwm_positive        = port:PD22<2><0><default><default>
 
 [pwm0_suspend]
 pwm_positive        = port:PD22<7><0><default><default>
 
-[pwm16]
-s_pwm0_used         = 1
+[spwm0]
+s_pwm_used         = 1
 pwm_positive        = port:PL10<2><0><default><default>
 
-[pwm16_suspend]
+[spwm0_suspend]
 pwm_positive        = port:PL10<7><0><default><default>
 
 
