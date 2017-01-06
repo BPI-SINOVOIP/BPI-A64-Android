@@ -17,31 +17,29 @@ Notice: Please download this file to the correct path  https://drive.google.com/
 Welcome to mkscript setup progress
 All available chips:
    1. sun50iw1p1
-   
+
 Choice: 1
 
 All available platforms:
    1. android
    2. dragonboard
    3. linux
-   4. camdroid
-   5. secureandr
-   
+   4. camdroid
+   5. secureandroid
+   
 Choice: 1
-
 
 All available kernel:
    1. linux-3.10
-   2. linux-3.4
-  
+   2. linux-3.4
+   
 Choice: 1
 
 All available boards:
    1. bpi-m64-hdmi
-   2. bpi-m64-lcd
-   
-Choice:1 or 2
-
+   2. bpi-m64-lcd
+   
+Choice: 1 or 2
 
    $ ./build.sh 
 
