@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-PLATFORM="sun8iw3p1"
+PLATFORM="sun50iw1p1"
 MODE=""
 
 show_help()
