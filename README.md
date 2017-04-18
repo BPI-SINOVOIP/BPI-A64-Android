@@ -1,6 +1,6 @@
 # BPI-M64 Android 6.1 Source code
 -------
-Notice: Please download this file to the correct path
+Notice: Please download this file to the correct path  https://drive.google.com/open?id=0B_YnvHgh2rwjaVRrc2VoR0xLTlE
 
 1.  gcc-linaro-aarch64.tar.xz   ==> /lichee/buildroot/dl
 
@@ -17,16 +17,7 @@ Notice: Please download this file to the correct path
 Welcome to mkscript setup progress
 All available chips:
    1. sun50iw1p1
-   2. sun8iw10p1
-   3. sun8iw1p1
-   4. sun8iw3p1
-   5. sun8iw5p1
-   6. sun8iw6p1
-   7. sun8iw7p1
-   8. sun8iw8p1
-   9. sun8iw9p1
-   10. sun9iw1p
-   
+
 Choice: 1
 
 All available platforms:
@@ -34,28 +25,21 @@ All available platforms:
    2. dragonboard
    3. linux
    4. camdroid
-   5. secureandroi
+   5. secureandroid
    
 Choice: 1
-
 
 All available kernel:
    1. linux-3.10
-   2. linux-3.
-  
+   2. linux-3.4
+   
 Choice: 1
 
 All available boards:
-   1. fpga
-   2. p1
-   3. perf1_v1_0
-   4. perf2_v1_0
-   5. perf3_v1_0
-   6. t1
-   7. t1_v
+   1. bpi-m64-hdmi
+   2. bpi-m64-lcd
    
-Choice:2
-
+Choice: 1 or 2
 
    $ ./build.sh 
 
@@ -66,7 +50,7 @@ Choice:2
 
    $source build/envsetup.sh
    
-   $lunch    //(tulip_bpi_m64-eng)
+   $lunch    //(bpi_m64_hdmi-eng or bpi_m64_lcd-eng)
    
    $extract-bsp
    
