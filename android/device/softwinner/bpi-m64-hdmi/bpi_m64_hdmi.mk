@@ -34,7 +34,6 @@ PRODUCT_COPY_FILES += \
     device/softwinner/bpi-m64-hdmi/modules/modules/disp.ko:root/disp.ko \
     device/softwinner/bpi-m64-hdmi/modules/modules/sunxi-keyboard.ko:recovery/root/sunxi-keyboard.ko \
     device/softwinner/bpi-m64-hdmi/modules/modules/sw-device.ko:recovery/root/sw-device.ko \
-    device/softwinner/bpi-m64-hdmi/modules/modules/gslX680new.ko:recovery/root/gslX680new.ko \
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml \
