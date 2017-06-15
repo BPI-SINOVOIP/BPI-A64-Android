@@ -4021,7 +4021,12 @@ public class WindowManagerService extends IWindowManager.Stub
     boolean updateOrientationFromAppTokensLocked(boolean inTransaction) {
         long ident = Binder.clearCallingIdentity();
         try {
-            int req = getOrientationLocked();
+
+            //Justin 20170615 Porting for Display always LANDSCAPE End
+            //int req = getOrientationLocked();
+              int req = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+            //Justin 20170615 Porting for Display always LANDSCAPE End
+
             if (req != mForcedAppOrientation) {
                 mForcedAppOrientation = req;
                 //send a message to Policy indicating orientation change to take
@@ -4038,6 +4043,21 @@ public class WindowManagerService extends IWindowManager.Stub
             Binder.restoreCallingIdentity(ident);
         }
     }
+
+/*
+     //Justin 20170615 Porting for Display always LANDSCAPE Start  
+   int computeForcedAppOrientationLocked() {
+        int req = getOrientationLocked();
+        if (req == ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED) {
+            req = getOrientationFromAppTokensLocked();
+        }
+        android.util.Log.v("Justin","BPI-M64 set LANDSCAPE");
+        req = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+        return req;
+    }
+   //Justin 20170615 Porting for Display always LANDSCAPE End
+*/
+
 
     @Override
     public void setNewConfiguration(Configuration config) {
