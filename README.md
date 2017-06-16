@@ -10,7 +10,8 @@ Notice: Please download this file to the correct path  https://drive.google.com/
 
 ---------
 ###1 Build Android BSP
- $ cd lichee
+
+   $ cd lichee
  
    $ ./build.sh config    
 
@@ -46,6 +47,7 @@ Choice: 1 or 2
 ***********
 
 ###2 Buidl Android 
+
    $cd ../android
 
    $source build/envsetup.sh
