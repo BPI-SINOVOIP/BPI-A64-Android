@@ -10,5 +10,6 @@ ifeq ($(CONFIG_ARCH_SUN8IW11),y)
 sub_dir = lowlevel_sun8iw11
 endif
 
+sub_dir = lowlevel_sun50iw1
 -include $(obj)/de/$(sub_dir)/Makefile
 
