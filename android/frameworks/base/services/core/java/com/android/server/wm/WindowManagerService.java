@@ -4022,10 +4022,10 @@ public class WindowManagerService extends IWindowManager.Stub
         long ident = Binder.clearCallingIdentity();
         try {
 
-            //Justin 20170615 Porting for Display always LANDSCAPE End
-            //int req = getOrientationLocked();
-              int req = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
-            //Justin 20170615 Porting for Display always LANDSCAPE End
+            //Justin 20170803 Porting for Display always LANDSCAPE End
+            int req = getOrientationLocked();
+            //int req = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+            //Justin 20170803 Porting for Display always LANDSCAPE End
 
             if (req != mForcedAppOrientation) {
                 mForcedAppOrientation = req;
