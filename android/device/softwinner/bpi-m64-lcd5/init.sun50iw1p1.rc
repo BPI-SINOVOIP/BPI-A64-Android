@@ -41,8 +41,8 @@ on fs
     chmod 0660 /dev/scdev
     chown keystore keystore /dev/scdev
 
-	# sw-keyboard
-    insmod /system/vendor/modules/sunxi-keyboard.ko
+    # sw-keyboard
+    #insmod /system/vendor/modules/sunxi-keyboard.ko
 
     #Justin Porting Start
     #init_dev_detect
@@ -145,8 +145,8 @@ on fs
     chown dhcp system /data/misc/dhcp
 
 on property:sys.boot_completed=1
-    chown system system /sys/devices/soc.0/1c2ac00.twi/i2c-0/0-0040/runtime_suspend
-    chmod 0660 /sys/devices/soc.0/1c2ac00.twi/i2c-0/0-0040/runtime_suspend
+    chown system system /sys/devices/soc.0/1c2ac00.twi/i2c-0/0-005d/runtime_suspend
+    chmod 0660 /sys/devices/soc.0/1c2ac00.twi/i2c-0/0-005d/runtime_suspend
     #start engsetmacaddr
     #start engsetbtmacaddr
 
