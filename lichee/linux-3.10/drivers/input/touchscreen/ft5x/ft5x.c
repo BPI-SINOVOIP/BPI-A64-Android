@@ -43,15 +43,6 @@
 #include <asm/io.h>
 #include <asm/uaccess.h>
 
-//Justin Porting 20160811 Start
-//#include <mach/irqs.h>
-//#include <mach/hardware.h>
-
-
-//#define CONFIG_SUPPORT_FTS_CTP_UPG
-
-//Justin Porting 20160811 End
-
 #define FOR_TSLIB_TEST
 //#define TOUCH_KEY_SUPPORT
 #ifdef TOUCH_KEY_SUPPORT
@@ -1132,6 +1123,7 @@ static void ft5x_ts_release(void)
 #else
 	input_report_abs(data->input_dev, ABS_MT_TOUCH_MAJOR, 0);
 	input_report_abs(data->input_dev, ABS_MT_WIDTH_MAJOR, 0);
+	input_report_key(data->input_dev, BTN_TOUCH, 0);
 #endif
 
 #else
@@ -1279,6 +1271,7 @@ static void ft5x_report_multitouch(void)
 
 	switch(event->touch_point) {
 	case 5:
+		input_report_key(data->input_dev, BTN_TOUCH, 1);
 		input_report_abs(data->input_dev, ABS_MT_TRACKING_ID, event->touch_ID5);	
 		input_report_abs(data->input_dev, ABS_MT_TOUCH_MAJOR, event->pressure);
 		input_report_abs(data->input_dev, ABS_MT_POSITION_X, event->x5);
@@ -1287,6 +1280,7 @@ static void ft5x_report_multitouch(void)
 		input_mt_sync(data->input_dev);
 		dprintk(DEBUG_X_Y_INFO,"report data:===x5 = %d,y5 = %d ====\n",event->x5,event->y5);
 	case 4:
+		input_report_key(data->input_dev, BTN_TOUCH, 1);
 		input_report_abs(data->input_dev, ABS_MT_TRACKING_ID, event->touch_ID4);	
 		input_report_abs(data->input_dev, ABS_MT_TOUCH_MAJOR, event->pressure);
 		input_report_abs(data->input_dev, ABS_MT_POSITION_X, event->x4);
@@ -1295,6 +1289,7 @@ static void ft5x_report_multitouch(void)
 		input_mt_sync(data->input_dev);
 		dprintk(DEBUG_X_Y_INFO,"report data:===x4 = %d,y4 = %d ====\n",event->x4,event->y4);
 	case 3:
+		input_report_key(data->input_dev, BTN_TOUCH, 1);
 		input_report_abs(data->input_dev, ABS_MT_TRACKING_ID, event->touch_ID3);	
 		input_report_abs(data->input_dev, ABS_MT_TOUCH_MAJOR, event->pressure);
 		input_report_abs(data->input_dev, ABS_MT_POSITION_X, event->x3);
@@ -1303,6 +1298,7 @@ static void ft5x_report_multitouch(void)
 		input_mt_sync(data->input_dev);
 		dprintk(DEBUG_X_Y_INFO,"report data:===x3 = %d,y3 = %d ====\n",event->x3,event->y3);
 	case 2:
+		input_report_key(data->input_dev, BTN_TOUCH, 1);
 		input_report_abs(data->input_dev, ABS_MT_TRACKING_ID, event->touch_ID2);	
 		input_report_abs(data->input_dev, ABS_MT_TOUCH_MAJOR, event->pressure);
 		input_report_abs(data->input_dev, ABS_MT_POSITION_X, event->x2);
@@ -1311,6 +1307,7 @@ static void ft5x_report_multitouch(void)
 		input_mt_sync(data->input_dev);
 		dprintk(DEBUG_X_Y_INFO,"report data:===x2 = %d,y2 = %d ====\n",event->x2,event->y2);
 	case 1:
+		input_report_key(data->input_dev, BTN_TOUCH, 1);
 		input_report_abs(data->input_dev, ABS_MT_TRACKING_ID, event->touch_ID1);	
 		input_report_abs(data->input_dev, ABS_MT_TOUCH_MAJOR, event->pressure);
 		input_report_abs(data->input_dev, ABS_MT_POSITION_X, event->x1);
@@ -1659,29 +1656,26 @@ static int ft5x_ts_probe(struct i2c_client *client, const struct i2c_device_id *
 	ft5x_ts->input_dev = input_dev;
 
 #ifdef CONFIG_FT5X0X_MULTITOUCH
-	set_bit(ABS_MT_TOUCH_MAJOR, input_dev->absbit);
-	set_bit(ABS_MT_POSITION_X, input_dev->absbit);
-	set_bit(ABS_MT_POSITION_Y, input_dev->absbit);
-	set_bit(ABS_MT_WIDTH_MAJOR, input_dev->absbit);	
+	input_dev->evbit[0] = BIT_MASK(EV_SYN) | BIT_MASK(EV_KEY) | BIT_MASK(EV_ABS);
+	input_dev->keybit[BIT_WORD(BTN_TOUCH)] = BIT_MASK(BTN_TOUCH);
+	__set_bit(INPUT_PROP_DIRECT, input_dev->propbit);
+
 #ifdef FOR_TSLIB_TEST
 	set_bit(BTN_TOUCH, input_dev->keybit);
 #endif
-	input_set_abs_params(input_dev,
-			     ABS_MT_POSITION_X, 0, SCREEN_MAX_X, 0, 0);
-	input_set_abs_params(input_dev,
-			     ABS_MT_POSITION_Y, 0, SCREEN_MAX_Y, 0, 0);
-	input_set_abs_params(input_dev,
-			     ABS_MT_TOUCH_MAJOR, 0, PRESS_MAX, 0, 0);
-	input_set_abs_params(input_dev,
-			     ABS_MT_WIDTH_MAJOR, 0, 200, 0, 0);
-	input_set_abs_params(input_dev,
-			     ABS_MT_TRACKING_ID, 0, 4, 0, 0);
 #ifdef TOUCH_KEY_SUPPORT
 	key_tp = 0;
 	input_dev->evbit[0] = BIT_MASK(EV_KEY);
 	for (i = 1; i < TOUCH_KEY_NUMBER; i++)
 		set_bit(i, input_dev->keybit);
 #endif
+
+	input_set_abs_params(input_dev, ABS_MT_POSITION_X, 0, SCREEN_MAX_X, 0, 0);
+        input_set_abs_params(input_dev, ABS_MT_POSITION_Y, 0, SCREEN_MAX_Y, 0, 0);
+        input_set_abs_params(input_dev, ABS_MT_WIDTH_MAJOR, 0, 255, 0, 0);
+        input_set_abs_params(input_dev, ABS_MT_TOUCH_MAJOR, 0, 255, 0, 0);
+        input_set_abs_params(input_dev, ABS_MT_TRACKING_ID, 0, 255, 0, 0);
+
 #else
 	set_bit(ABS_X, input_dev->absbit);
 	set_bit(ABS_Y, input_dev->absbit);
@@ -1692,9 +1686,6 @@ static int ft5x_ts_probe(struct i2c_client *client, const struct i2c_device_id *
 	input_set_abs_params(input_dev,
 			     ABS_PRESSURE, 0, PRESS_MAX, 0 , 0);
 #endif
-
-	set_bit(EV_ABS, input_dev->evbit);
-	set_bit(EV_KEY, input_dev->evbit);
 
 	input_dev->name	= CTP_NAME;		//dev_name(&client->dev)
 	err = input_register_device(input_dev);
@@ -1771,10 +1762,10 @@ exit_check_functionality_failed:
         
 	return err;
 }
-//Justin Porting 20160811 Start
+
 static int ft5x_ts_remove(struct i2c_client *client)
 {
-//Justin Porting 20160811 End
+
 	struct ft5x_ts_data *ft5x_ts = i2c_get_clientdata(client);
 	ft5x_set_reg(FT5X0X_REG_PMODE, PMODE_HIBERNATE);
 	
@@ -1808,9 +1799,7 @@ MODULE_DEVICE_TABLE(i2c, ft5x_ts_id);
 static struct i2c_driver ft5x_ts_driver = {
 	.class          = I2C_CLASS_HWMON,
 	.probe		= ft5x_ts_probe,
-	//Justin Porting 20160811 Start
 	.remove		= ft5x_ts_remove,
-	//Justin Porting 20160811 End
 	.id_table	= ft5x_ts_id,
 	.suspend        = ft5x_ts_suspend,
 	.resume         = ft5x_ts_resume,
@@ -1824,8 +1813,7 @@ static struct i2c_driver ft5x_ts_driver = {
 
 static int aw_open(struct inode *inode, struct file *file)
 {
-	int subminor;
-	int ret = 0;	
+	int subminor;	
 	struct i2c_client *client;
 	struct i2c_adapter *adapter;	
 	struct i2c_dev *i2c_dev;	
@@ -1867,11 +1855,9 @@ static long aw_ioctl(struct file *file, unsigned int cmd,unsigned long arg )
 	switch (cmd) {
 	case UPGRADE:
 	        dprintk(DEBUG_OTHERS_INFO,"==UPGRADE_WORK=\n");
-//Justin Porting 20160811 Start
 #ifdef CONFIG_SUPPORT_FTS_CTP_UPG
-			fts_ctpm_fw_upgrade_with_i_file();
+		fts_ctpm_fw_upgrade_with_i_file();
 #endif
-//Justin Porting 20160811 End
 		// calibrate();
 		break;
 	default:

@@ -26,29 +26,28 @@ on early-fs
 
 on fs
     insmod /system/vendor/modules/disp.ko
-	insmod /system/vendor/modules/sunxi_tr.ko
+    insmod /system/vendor/modules/sunxi_tr.ko
     insmod /system/vendor/modules/hdmi.ko
 
-	#secure storage
+    #secure storage
     insmod /system/vendor/modules/te_sec_storage.ko
 
-	# gpu
+    # gpu
     insmod /system/vendor/modules/mali.ko
 
-	# sw-keystore
+    # sw-keystore
     mkdir /cache/HWML 0770 root system
     insmod /system/vendor/modules/sunxi_schw.ko
     chmod 0660 /dev/scdev
     chown keystore keystore /dev/scdev
 
-	# sw-keyboard
+    # sw-keyboard
     insmod /system/vendor/modules/sunxi-keyboard.ko
 
-    #Justin Porting Start
-    #init_dev_detect
+    init_dev_detect
+      #insmod /system/vendor/modules/ft5x_ts.ko  
 
     insmod /system/vendor/modules/gpio-sunxi.ko
-    insmod /system/vendor/modules/ft5x_ts.ko  
     
      # BPI-M664-GPIO 
         chmod 777 /sys/class/gpio_sw/PH3/data
