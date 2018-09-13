@@ -626,6 +626,16 @@ static int sunxi_mmc_oclk_onoff(struct sunxi_mmc_host *host, u32 oclk_en)
 		pwr_save = 1;
 	return __sunxi_mmc_do_oclk_onoff(host,oclk_en,pwr_save,1);
 }
+
+
+int sunxi_mmc_oclk_onoff_sdmmc2(struct sunxi_mmc_host *host, u32 oclk_en)
+{
+	return sunxi_mmc_oclk_onoff(host, oclk_en);
+}
+
+
+
+
 int sunxi_mmc_clk_set_rate_for_sdmmc2(struct sunxi_mmc_host *host,
 				  struct mmc_ios *ios)
 {

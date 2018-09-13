@@ -35,6 +35,7 @@
 #include <linux/mmc/host.h>
 #include <linux/mmc/mmc.h>
 #include <linux/mmc/sd.h>
+#include <linux/mmc/slot-gpio.h>
 
 #include "core.h"
 #include "bus.h"
@@ -2534,6 +2535,7 @@ void mmc_rescan(struct work_struct *work)
 		int cd_sta = sunxi_mmc_debdetect(host);
 		 if((host->ops->get_cd)\
 			&&(host->rescan_pre_state^cd_sta)){
+				host->rescan_pre_state =  cd_sta;
 				pr_err("*%s detect cd change*\n",mmc_hostname(host));
 				wake_lock(&host->detect_wake_lock);
 				pr_err("*%s lock*\n",mmc_hostname(host));
@@ -2589,13 +2591,13 @@ void mmc_rescan(struct work_struct *work)
  out:
 	if (extend_wakelock){
 		wake_lock_timeout(&host->detect_wake_lock, HZ / 2);
-		pr_err("*%s lock timeout*\n",mmc_hostname(host));
+		pr_debug("*%s lock timeout*\n", mmc_hostname(host));
 	}else{
 		wake_unlock(&host->detect_wake_lock);
-		pr_err("*%s unlock*\n",mmc_hostname(host));
+		pr_debug("*%s unlock*\n", mmc_hostname(host));
 	}
 	if (host->caps & MMC_CAP_NEEDS_POLL) {
-		host->rescan_pre_state = present;
+		/*host->rescan_pre_state = present;*/
 		//wake_lock(&host->detect_wake_lock);
 		mmc_schedule_delayed_work(&host->detect, HZ);
 	}
@@ -2611,6 +2613,7 @@ void mmc_start_host(struct mmc_host *host)
 		if(!(host->caps&MMC_CAP_NEEDS_POLL))
 			mmc_power_up(host);
 	}
+	mmc_gpiod_request_cd_irq(host);
 	mmc_detect_change(host, 0);
 }
 
@@ -2622,6 +2625,8 @@ void mmc_stop_host(struct mmc_host *host)
 	host->removed = 1;
 	spin_unlock_irqrestore(&host->lock, flags);
 #endif
+	if (host->slot.cd_irq >= 0)
+		disable_irq(host->slot.cd_irq);
 
 	host->rescan_disable = 1;
 	if (cancel_delayed_work_sync(&host->detect)){
@@ -2991,6 +2996,49 @@ int mmc_pm_notify(struct notifier_block *notify_block,
 	return 0;
 }
 #endif
+
+/**
+ * mmc_manual_remove_card- manual removed card
+ * @host: mmc host
+ * @card: mmc_card
+ * Use for some wifi that will respone even if it has been reseted
+ * In these situation,we can not remove it from system using mmc_detect_change
+ * So we use mmc_manual_remove_card instead
+ * add by sunxi
+ */
+void mmc_manual_remove_card(struct mmc_host *host , struct mmc_card *card)
+{
+		unsigned long flags = 0;
+		pr_info("%s: Starting manual remove\n", mmc_hostname(host));
+		/***disable any detect work,for that card->state may be change by rescan*****/
+		spin_lock_irqsave(&host->lock, flags);
+		host->rescan_disable = 1;
+		spin_unlock_irqrestore(&host->lock, flags);
+		if (cancel_delayed_work_sync(&host->detect)) {
+				wake_unlock(&host->detect_wake_lock);
+		}
+
+		mmc_claim_host(host);
+		/****maual set card remove****/
+		/*We maual set card remove for that some wifi will response to our cmd even it has been reseted*/
+		/*We claim host here for that card->state may be change by other theoretically,so we claim here for save*/
+		mmc_card_set_removed(card);
+		mmc_release_host(host);
+
+		/****use detect function to remove card*****/
+		mmc_bus_get(host);
+		if (host->bus_ops->detect && !host->bus_dead)
+			host->bus_ops->detect(host);
+		mmc_bus_put(host);
+
+		/***re-enalbe detect work*****/
+		spin_lock_irqsave(&host->lock, flags);
+		host->rescan_disable = 0;
+		spin_unlock_irqrestore(&host->lock, flags);
+		pr_info("%s: Manual remove completed\n", mmc_hostname(host));
+}
+EXPORT_SYMBOL(mmc_manual_remove_card);
+
 
 /**
  * mmc_init_context_info() - init synchronization context
