@@ -16,7 +16,7 @@ machine = "bpi-m64"
 [platform]
 eraseflag   = 1
 next_work   = 3
-debug_mode  = 0
+debug_mode  = 1
 
 ;---------------------------------------------------------------------------------------------------------
 ; dragonboard_test default is 0,only in dragonboard card boot mode must be set 1
