@@ -98,6 +98,10 @@ int at_send_command_multiline (const char *command,
                                 const char *responsePrefix,
                                  ATResponse **pp_outResponse);
 
+int at_send_command_raw (const char *command,
+                                const char *raw_data, unsigned int raw_len,
+                                const char *responsePrefix,
+                                 ATResponse **pp_outResponse);
 
 int at_handshake();
 
@@ -109,11 +113,19 @@ int at_send_command_sms (const char *command, const char *pdu,
 
 void at_response_free(ATResponse *p_response);
 
+/**
+ *  Modify on 2014-1-27
+ *  wythe: Redefine the CME Error on at_error.h file.
+ */
+#if 1
+#include "at_error.h" //wythe add on 2014-1-27 to redefine the CME Error
+#else
 typedef enum {
     CME_ERROR_NON_CME = -1,
     CME_SUCCESS = 0,
     CME_SIM_NOT_INSERTED = 10
 } AT_CME_Error;
+#endif
 
 AT_CME_Error at_get_cme_error(const ATResponse *p_response);
 

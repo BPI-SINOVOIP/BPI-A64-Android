@@ -187,4 +187,86 @@ int at_tok_hasmore(char **p_cur)
     return ! (*p_cur == NULL || **p_cur == '\0');
 }
 
+#if 1 //quectel
+/**
+ *  Add to skip comma
+ *  Wythe 2013-9-27
+ */
+int skipComma(char **p_cur)
+{
+    if(*p_cur == NULL) return -1;
+
+    while(**p_cur != '\0' && **p_cur != ',')
+    {
+        (*p_cur)++;
+    }
+
+    if(**p_cur == ',')
+    {
+        (*p_cur)++;
+    }
+
+    if(*p_cur == NULL) return -1;
+
+
+    return 0;
+}
+
+//wythe add on 2014-3-28
+/** return the num of $(*target) char in $(*p_cur) string */
+int at_tok_charcounter(char *p_cur, char *target, int *p_outcount)
+{
+    int targetcounter = 0;
+
+    if(p_cur == NULL)
+        return -1;
+    
+    while(*p_cur != '\0')
+    {
+        if( *p_cur == *target)
+            targetcounter++;
+        p_cur++;
+    }
+		*p_outcount=targetcounter;    
+    return 0;
+}
+
+//wythe add on 2014-3-28
+/** return the element value between beginTag and endTag,
+ *  also return the new string begin from endTag.(endTag is
+ *  not in the new string)
+ */
+char* at_tok_getElementValue(const char *p_in, const char *beginTag, const char *endTag, char **remaining)
+{
+    char *ret = NULL;
+    char *start = NULL;
+    char *end = NULL;
+    int n = 0;
+    int m = 0;
+    
+    if(p_in == NULL || beginTag == NULL || endTag == NULL)
+        return NULL;
+    
+    start = strstr(p_in, beginTag);
+    if(start != NULL)
+        end = strstr(p_in,endTag);
+    if(end != NULL)
+    {
+        n = strlen(beginTag);
+        m = end - (start+n);
+
+        ret = (char *)malloc(m * sizeof(char *));
+        if(ret != NULL)
+        {
+            strncpy(ret, start+n, m);
+            ret[m] = (char)0;
+        }
+
+        if(remaining != NULL)
+            *remaining = end + strlen(endTag);
+    }
+
+    return ret;
+}
+#endif
 
