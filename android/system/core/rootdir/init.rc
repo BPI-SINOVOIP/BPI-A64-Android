@@ -633,7 +633,7 @@ service debuggerd64 /system/bin/debuggerd64
     class main
     writepid /dev/cpuset/system-background/tasks
 
-service ril-daemon /system/bin/rild
+service ril-daemon /system/bin/rild -l /system/lib64/libreference-ril.so
     class main
     socket rild stream 660 root radio
     socket sap_uim_socket1 stream 660 bluetooth bluetooth

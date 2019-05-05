@@ -206,7 +206,7 @@ service optee /system/bin/tee_supplicant
     group root
 endif
 
-service ril-daemon /system/bin/rild -l /system/lib/libreference-ril.so
+service ril-daemon /system/bin/rild -l /system/lib64/libreference-ril.so
 	class main
 	socket rild stream 660 root radio
 	socket rild-debug stream 666 radio system
