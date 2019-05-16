@@ -106,8 +106,10 @@ public interface RILConstants {
     int NETWORK_MODE_LTE_TDSCDMA_GSM_WCDMA   = 20; /* TD-SCDMA, GSM/WCDMA and LTE */
     int NETWORK_MODE_TDSCDMA_CDMA_EVDO_GSM_WCDMA  = 21; /*TD-SCDMA,EvDo,CDMA,GSM/WCDMA*/
     int NETWORK_MODE_LTE_TDSCDMA_CDMA_EVDO_GSM_WCDMA = 22; /* TD-SCDMA/LTE/GSM/WCDMA, CDMA, and EvDo */
+ //   int PREFERRED_NETWORK_MODE      = SystemProperties.getInt("ro.telephony.default_network",
+ //           NETWORK_MODE_WCDMA_PREF);
     int PREFERRED_NETWORK_MODE      = SystemProperties.getInt("ro.telephony.default_network",
-            NETWORK_MODE_WCDMA_PREF);
+			  NETWORK_MODE_LTE_GSM_WCDMA);
 
     int CDMA_CELL_BROADCAST_SMS_DISABLED = 1;
     int CDMA_CELL_BROADCAST_SMS_ENABLED  = 0;
