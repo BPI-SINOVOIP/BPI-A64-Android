@@ -1161,7 +1161,9 @@
   <apn carrier="China Telecom Mms" mcc="460" mnc="03" apn="CTWAP" user="ctwap@mycdma.cn" password="vnet.mobi" proxy="10.0.0.200" port="80" mmsc="http://mmsc.vnet.mobi" mmsproxy="10.0.0.200" mmsport="80" type="mms" />
   <apn carrier="China Telecom wap" mcc="460" mnc="03" apn="CTWAP" user="ctwap@mycdma.cn" password="vnet.mobi" mmsc="http://mmsc.vnet.mobi" mmsproxy="10.0.0.200" mmsport="80" type="default" />
   <apn carrier="China Mobile" mcc="460" mnc="00" apn="cmnet" type="default,supl" />
+  <apn carrier="China Mobile" mcc="460" mnc="04" apn="cmnet" type="default,supl" />
   <apn carrier="China Mobile MMS" mcc="460" mnc="00" apn="cmwap" proxy="10.0.0.172" port="80" mmsc="http://mmsc.monternet.com" mmsproxy="10.0.0.172" mmsport="80" type="mms" />
+  
   <apn carrier="China Unicom 3G" mcc="460" mnc="01" apn="3gnet" port="80" type="default,supl" />
   <apn carrier="中国联辿3g 彩信 (China Unicom)" mcc="460" mnc="01" apn="3gwap" mmsc="http://mmsc.myuni.com.cn" mmsproxy="10.0.0.172" mmsport="80" type="mms" />
   <apn carrier="China Unicom MMS" mcc="460" mnc="01" apn="uniwap" mmsc="http://mmsc.myuni.com.cn" mmsproxy="10.0.0.172" mmsport="80" type="mms" />
